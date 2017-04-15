@@ -49,9 +49,7 @@ st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
 ENV = os.path.basename(ROM).rstrip('.bin')
 CHECKPOINT_DIR = os.path.join(CHECKPOINT_DIR, ENV + st)
 
-if not os.path.exists(LOG_FILE):
-    os.mkdir(LOG_FILE)
-LOG_FILE = os.path.join(LOG_FILE, ENV + st)
+
 
 global_t = 0
 
@@ -60,6 +58,7 @@ stop_requested = False
 if USE_LSTM:
   global_network = GameACLSTMNetwork(ACTION_SIZE, -1, device)
 else:
+  #global_network needs to incorporate two games
   global_network = GameACFFNetwork(ACTION_SIZE, -1, device)
 
 
