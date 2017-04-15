@@ -27,6 +27,7 @@ from constants import RMSP_ALPHA
 from constants import GRAD_NORM_CLIP
 from constants import USE_GPU
 from constants import USE_LSTM
+from constants import ROM
 
 
 def log_uniform(lo, hi, rate):
@@ -45,7 +46,8 @@ initial_learning_rate = log_uniform(INITIAL_ALPHA_LOW,
 
 ts = time.time()
 st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
-CHECKPOINT_DIR = os.path.join(CHECKPOINT_DIR, st)
+ENV = os.path.basename(ROM).rstrip('.bin')
+CHECKPOINT_DIR = os.path.join(CHECKPOINT_DIR, ENV + st)
 
 
 
