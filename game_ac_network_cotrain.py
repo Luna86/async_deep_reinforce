@@ -50,13 +50,13 @@ class GameACNetwork(object):
       self.total_loss1 = policy_loss1 + value_loss1
       self.total_loss2 = policy_loss2 + value_loss2
 
-  def run_policy_and_value(self, sess, s_t):
+  def run_policy_and_value(self, sess, s_t, game_index):
     raise NotImplementedError()
     
-  def run_policy(self, sess, s_t):
+  def run_policy(self, sess, s_t, game_index):
     raise NotImplementedError()
 
-  def run_value(self, sess, s_t):
+  def run_value(self, sess, s_t, game_index):
     raise NotImplementedError()    
 
   def get_vars(self):
@@ -133,6 +133,7 @@ class GameACFFNetwork(GameACNetwork):
 
       h_conv2_flat = tf.reshape(h_conv2, [-1, 2592])
       #two streams of fc layer
+
       h_fc1 = tf.nn.relu(tf.matmul(h_conv2_flat, self.W_fc1) + self.b_fc1)
 
       # policy (output)
@@ -155,10 +156,10 @@ class GameACFFNetwork(GameACNetwork):
 
   def run_policy(self, sess, s_t, game_index):
     if game_index == 1:
-        pi_out = sess.run( self.pi1, feed_dict = {self.s : [s_t]} )
+      pi_out = sess.run( self.pi1, feed_dict = {self.s : [s_t]} )
     elif game_index == 2:
       pi_out = sess.run( self.pi2, feed_dict = {self.s : [s_t]} )
-     else:
+    else:
       raise ValueError("game_index should be 1 or 2")
     return pi_out[0]
 
@@ -180,6 +181,21 @@ class GameACFFNetwork(GameACNetwork):
             self.W_fc3_1, self.b_fc3_1,
             self.W_fc3_2, self.b_fc3_2]
 
+
+#
+#  def get_vars_1(self):
+#    return [self.W_conv1, self.b_conv1,
+#            self.W_conv2, self.b_conv2,
+#            self.W_fc1, self.b_fc1,
+#            self.W_fc2_1, self.b_fc2_1,
+#            self.W_fc3_1, self.b_fc3_1]
+#
+#  def get_vars_2(self):
+#    return [self.W_conv1, self.b_conv1,
+#            self.W_conv2, self.b_conv2,
+#            self.W_fc1, self.b_fc1,
+#            self.W_fc2_2, self.b_fc2_2,
+#            self.W_fc3_2, self.b_fc3_2]
 
 
 
