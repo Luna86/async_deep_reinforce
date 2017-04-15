@@ -146,6 +146,16 @@ class GameACFFNetwork(GameACNetwork):
             self.W_fc2, self.b_fc2,
             self.W_fc3, self.b_fc3]
 
+
+
+
+
+
+
+
+
+
+
 # Actor-Critic LSTM Network
 class GameACLSTMNetwork(GameACNetwork):
   def __init__(self,
